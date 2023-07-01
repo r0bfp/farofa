@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'products/style.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div class="container" id="main-container">
+            <div class="table-responsive shadow-sm">
+                {% if products %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            {% for field in products_fields %}
+                                <th scope="col">{{ field }}</th>
+                                {% endfor %}
+                            <th scope="col">Ação</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.type }}</td>
+                                <td>{{ product.message }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Action
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Separated link</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <h1>Nenhum produto encontrado</h1>
+                {% endif %}
+            <button type="button" class="btn btn-primary">Adicionar</button>
+        </div>
+    </body>
+</html>
