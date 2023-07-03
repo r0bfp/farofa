@@ -1,7 +1,14 @@
 body, html {
     height: 100%;
+    background-color: #F9FAFD;
+    overflow: hidden;
 }
 
-div#main-container{
+div#main-container {
     margin-top: 10%;
+}
+
+div#content-container {
+    background-color: #FFFFFF;
+    max-height: 80vh;
 }

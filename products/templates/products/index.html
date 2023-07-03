@@ -8,48 +8,89 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <div class="container" id="main-container">
-            <div class="table-responsive shadow-sm">
-                {% if products %}
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            {% for field in products_fields %}
-                                <th scope="col">{{ field }}</th>
-                                {% endfor %}
-                            <th scope="col">Ação</th>
-                        </tr>
-                    </thead>
-                        <tbody>
-                            {% for product in products %}
+        <div class="container " id="main-container">
+            <div class="pt-4 pb-4 card" id="content-container">
+                <div class="table-responsive p-3" id="table-container">
+                    <table class="table table-borderless table-hover mt-2 mb-2 text-muted">
+                        <thead class="table-light">
                             <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Código</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Mensagem</th>
+                                <th scope="col">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if products %}
+                            {% for product in products %}
+                            <tr class="align-middle">
                                 <td>{{ product.id }}</td>
                                 <td>{{ product.name }}</td>
-                                <td>{{ product.type }}</td>
+                                <td>{{ product.code }}</td>
+                                <td>
+                                    <span class="badge {% if product.type == 'Produto' %} bg-primary {% else %} bg-secondary {% endif %}">{{ product.type }}</span>
+                                </td>
                                 <td>{{ product.message }}</td>
                                 <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Action
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Separated link</a>
-                                        </div>
-                                    </div>
+                                    <a class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal" type="button">Editar</a>
+                                    <a class="btn btn-outline-danger btn-sm" href="{{ product.id }}/delete">Remover</a>
                                 </td>
                             </tr>
                             {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="10">
+                                    <h3>Nenhum produto encontrado</h3>
+                                </td>
+                            </tr>
+                            {% endif %}
                         </tbody>
                     </table>
                 </div>
-                {% else %}
-                <h1>Nenhum produto encontrado</h1>
-                {% endif %}
-            <button type="button" class="btn btn-primary">Adicionar</button>
+                <hr class="dropdown-divider">
+                <div id="add-product-container" class="p-3">
+                    <form class="row gx-3 gy-2 align-items-center justify-content-md-end" action="{% url 'store' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" placeholder="Nome" name="name">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" placeholder="Código" name="code">
+                        </div>
+                        <div class="col-sm-3" name="type">
+                            <select class="form-select text-muted" name="type">
+                                <option value="Produto" selected>Produto</option>
+                                <option value="Serviço">Serviço</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3" name="message">
+                            <input type="text" class="form-control text-muted" placeholder="Mensagem" name="message" value="Mensagem teste 2">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary">Adicionar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
