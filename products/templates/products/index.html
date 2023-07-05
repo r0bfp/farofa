@@ -26,27 +26,27 @@
                         </thead>
                         <tbody>
                             {% if products %}
-                                {% for product in products %}
-                                    <tr class="align-middle">
-                                        <td>{{ product.id }}</td>
-                                        <td>{{ product.name }}</td>
-                                        <td>{{ product.code }}</td>
-                                        <td>
-                                            <span class="badge {% if product.type == 'Produto' %} bg-primary {% else %} bg-secondary {% endif %}">{{ product.type }}</span>
-                                        </td>
-                                        <td>{{ product.message }}</td>
-                                        <td>
-                                            <a class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal" type="button">Editar</a>
-                                            <a class="btn btn-outline-danger btn-sm" href="{{ product.id }}/delete">Remover</a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
+                            {% for product in products %}
+                            <tr class="align-middle">
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.code }}</td>
+                                <td>
+                                    <span class="badge {% if product.type == 'Produto' %} bg-primary {% else %} bg-secondary {% endif %}">{{ product.type }}</span>
+                                </td>
+                                <td>{{ product.message }}</td>
+                                <td>
+                                    <a class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal" type="button"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a class="btn btn-outline-danger btn-sm" href="{{ product.id }}/delete"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
                             {% else %}
-                                <tr>
-                                    <td colspan="10">
-                                        <h3>Nenhum produto encontrado</h3>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="6">
+                                    <h3>Nenhum produto encontrado</h3>
+                                </td>
+                            </tr>
                             {% endif %}
                         </tbody>
                     </table>
