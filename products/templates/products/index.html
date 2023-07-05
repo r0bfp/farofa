@@ -1,15 +1,16 @@
-<!DOCTYPE html>
 <html>
     <head>
-        <title>{% block title %}{% endblock %}</title>
+        <title>Controle de Estoque</title>
         {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
         {% load static %}
         <link rel="stylesheet" href="{% static 'products/css/main.css' %}">
         <script src="{% static 'products/js/form.js' %}"></script>  
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
     </head>
     <body>
-        <div class="container " id="main-container">
+        <div class="container" id="main-container">
+            <h1 class="mb-5">Controle de Estoque</h1>
             <div class="pt-4 pb-4 card" id="content-container">
                 <div class="table-responsive p-3" id="table-container">
                     <table class="table table-borderless table-hover mt-2 mb-2 text-muted">
@@ -60,7 +61,7 @@
                         <div class="col-sm-3">
                             <input type="text" class="form-control" placeholder="Código" name="code">
                         </div>
-                        <div class="col-sm-3" name="type">
+                        <div class="col-sm-3">
                             <select class="form-select text-muted" name="type">
                                 <option value="Produto" selected>Produto</option>
                                 <option value="Serviço">Serviço</option>
@@ -72,8 +73,10 @@
                         <div class="col-auto">
                             <button type="submit" class="btn btn-primary">Adicionar</button>
                         </div>
-                    </form>
-                </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Adicionar</button>
+                    </div>
+                </form>
             </div>
             {% for message in messages %}
                 <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
@@ -82,22 +85,36 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+    </div>
+    <div class="modal fade bd-example-modal-xl" id="modal" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Produto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-sm-2">
+                          <input type="text" class="form-control" placeholder="Nome" aria-label="Nome do produto.">
+                        </div>
+                        <div class="col-sm-2">
+                          <input type="text" class="form-control" placeholder="Código" aria-label="Código do produto.">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" placeholder="Tipo" aria-label="Tipo do produto.">
+                          </div>
+                        <div class="col-sm-6">
+                          <input type="text" class="form-control" placeholder="Mensagem" aria-label="Mensagem do produto.">
+                        </div>
+                      </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"><i class="fa-solid fa-check"></i></button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i></button>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
