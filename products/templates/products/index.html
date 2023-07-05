@@ -4,7 +4,8 @@
         <title>{% block title %}{% endblock %}</title>
         {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
         {% load static %}
-        <link rel="stylesheet" href="{% static 'products/style.css' %}">
+        <link rel="stylesheet" href="{% static 'products/css/main.css' %}">
+        <script src="{% static 'products/js/form.js' %}"></script>  
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
@@ -24,34 +25,34 @@
                         </thead>
                         <tbody>
                             {% if products %}
-                            {% for product in products %}
-                            <tr class="align-middle">
-                                <td>{{ product.id }}</td>
-                                <td>{{ product.name }}</td>
-                                <td>{{ product.code }}</td>
-                                <td>
-                                    <span class="badge {% if product.type == 'Produto' %} bg-primary {% else %} bg-secondary {% endif %}">{{ product.type }}</span>
-                                </td>
-                                <td>{{ product.message }}</td>
-                                <td>
-                                    <a class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal" type="button">Editar</a>
-                                    <a class="btn btn-outline-danger btn-sm" href="{{ product.id }}/delete">Remover</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
+                                {% for product in products %}
+                                    <tr class="align-middle">
+                                        <td>{{ product.id }}</td>
+                                        <td>{{ product.name }}</td>
+                                        <td>{{ product.code }}</td>
+                                        <td>
+                                            <span class="badge {% if product.type == 'Produto' %} bg-primary {% else %} bg-secondary {% endif %}">{{ product.type }}</span>
+                                        </td>
+                                        <td>{{ product.message }}</td>
+                                        <td>
+                                            <a class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal" type="button">Editar</a>
+                                            <a class="btn btn-outline-danger btn-sm" href="{{ product.id }}/delete">Remover</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                             {% else %}
-                            <tr>
-                                <td colspan="10">
-                                    <h3>Nenhum produto encontrado</h3>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td colspan="10">
+                                        <h3>Nenhum produto encontrado</h3>
+                                    </td>
+                                </tr>
                             {% endif %}
                         </tbody>
                     </table>
                 </div>
                 <hr class="dropdown-divider">
                 <div id="add-product-container" class="p-3">
-                    <form class="row gx-3 gy-2 align-items-center justify-content-md-end" action="{% url 'store' %}" method="POST">
+                    <form id="add-product-form" class="row gx-3 gy-2 align-items-center justify-content-md-end" action="{% url 'store' %}" method="POST">
                         {% csrf_token %}
                         <div class="col-sm-3">
                             <input type="text" class="form-control" placeholder="Nome" name="name">
@@ -65,7 +66,7 @@
                                 <option value="Serviço">Serviço</option>
                             </select>
                         </div>
-                        <div class="col-sm-3" name="message">
+                        <div class="col-sm-3" name="message" id='message-input'>
                             <input type="text" class="form-control text-muted" placeholder="Mensagem" name="message" value="Mensagem teste 2">
                         </div>
                         <div class="col-auto">
@@ -74,6 +75,12 @@
                     </form>
                 </div>
             </div>
+            {% for message in messages %}
+                <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
         </div>
         <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
